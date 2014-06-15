@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="/home/cj/env/workspace/EasyProtein/app/build/intermediates/pre-dexed/debug/classes-2cc1aad4e47fe9528ca2051fd8a18ee714ee67ff.jar"
+        jar="/home/cj/env/workspace/EasyProtein/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
+    <item
+        dex="/home/cj/env/workspace/EasyProtein/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-649517c9f0db2a8fb6e3e7a5606ffe9cba07c49d.jar"
+        jar="/home/cj/env/adt/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
+    <item
+        dex="/home/cj/env/workspace/EasyProtein/app/build/intermediates/pre-dexed/debug/classes-11dc126f35708de21807b7e893b8d33d5569a3f5.jar"
+        jar="/home/cj/env/workspace/EasyProtein/build/intermediates/exploded-aar/com.android.support/gridlayout-v7/19.1.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="af4cc326e6cd92f88db12298767e521743aedd36"/>
+
+</pre-dex-items>

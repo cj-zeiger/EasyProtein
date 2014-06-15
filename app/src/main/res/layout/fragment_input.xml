@@ -1,0 +1,81 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="com.zygr.easyprotein.app.MainActivity.InputFragment"
+    android:background="#ffffffff"
+    android:paddingLeft="6dp"
+    android:paddingRight="6dp">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:baselineAligned="false"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
+        android:divider="?android:dividerHorizontal"
+        android:focusable="false"
+        android:gravity="left">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/text_calorie"
+            android:id="@+id/text_calories"
+            android:password="false"
+            android:paddingRight="14dp"
+            android:paddingLeft="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/text_protein"
+            android:id="@+id/text_protein"
+            android:paddingLeft="12dp" />
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:layout_weight="1"
+            android:id="@+id/editText_calorie"
+            android:hint="@string/textinput_calorie"/>
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:layout_weight="1"
+            android:id="@+id/editText_protein"
+            android:hint="@string/textinput_protein" />
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="fill_horizontal">
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_add"
+            android:id="@+id/button_add"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_reset"
+            android:id="@+id/button_reset"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</LinearLayout>
