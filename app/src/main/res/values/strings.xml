@@ -12,8 +12,8 @@
     <string name="textinput_calorie">Calories</string>
     <string name="textinput_protein">Protein(g)</string>
 
-    <string name="text_calorie">Calories: 0</string>
-    <string name="text_protein">Protein: 0</string>
+    <string name="text_calorie">Calories</string>
+    <string name="text_protein">Protein</string>
 
     <string name="button_add">Add</string>
     <string name="button_reset">Reset</string>

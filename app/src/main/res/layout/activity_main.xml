@@ -3,7 +3,6 @@
     android:id="@+id/container"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:gravity="center"
     android:orientation="vertical"
     tools:context="com.zygr.easyprotein.app.MainActivity"
     tools:ignore="MergeRootFrame"
@@ -20,10 +19,9 @@
 
         <fragment
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:name="com.zygr.easyprotein.app.MainActivity$ListFragment"
+            android:layout_height="fill_parent"
+            android:name="com.zygr.easyprotein.app.MainActivity$HistoryFragment"
             android:id="@+id/list"
-            tools:layout="@layout/fragment_list"
             android:layout_margin="6dp" />
 
     </LinearLayout>

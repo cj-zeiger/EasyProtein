@@ -4,44 +4,81 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context="com.zygr.easyprotein.app.MainActivity.InputFragment"
-    android:background="#ffffffff"
     android:paddingLeft="6dp"
-    android:paddingRight="6dp">
+    android:paddingRight="6dp"
+    android:background="#ffffffff">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:baselineAligned="false"
-        android:paddingBottom="12dp"
-        android:paddingTop="12dp"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
         android:divider="?android:dividerHorizontal"
         android:focusable="false"
-        android:gravity="left">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/text_calorie"
-            android:id="@+id/text_calories"
-            android:password="false"
-            android:paddingRight="14dp"
-            android:paddingLeft="24dp" />
+        android:gravity="left"
+        android:background="#ffffffff">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/text_protein"
-            android:id="@+id/text_protein"
-            android:paddingLeft="12dp" />
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/text_calorie"
+                android:id="@+id/text_calories"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/text_calvar"
+                android:gravity="center"
+                android:textColor="#0099CC"
+                android:textStyle="bold"
+                android:textSize="38dp" />
         </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/text_protein"
+                    android:id="@+id/text_protein"
+                    android:gravity="center"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="0g"
+                android:id="@+id/text_provar"
+                android:gravity="center"
+                android:textColor="#0099CC"
+                android:textStyle="bold"
+                android:textSize="38dp" />
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:background="#ffffffff">
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -63,7 +100,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="fill_horizontal">
+        android:gravity="fill_horizontal"
+        android:background="#ffffffff">
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
