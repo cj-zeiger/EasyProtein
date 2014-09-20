@@ -33,10 +33,11 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
         android:text="Delete"
-        android:id="@+id/button"
+        android:id="@+id/button_delete"
         android:layout_weight="0"
-        android:clickable="false"
+        android:clickable="true"
         android:textSize="15dp"
         android:paddingRight="12dp"
-        android:paddingLeft="12dp" />
+        android:paddingLeft="12dp"
+        android:gravity="center" />
 </LinearLayout>

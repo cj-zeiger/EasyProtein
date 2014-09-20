@@ -20,8 +20,9 @@
         android:layout_height="match_parent"
         android:background="#ffffffff"
         android:text="No History"
-        android:textColor="#ff7b7b7b"
+        android:textColor="#ffd6d6d6"
         android:typeface="normal"
         android:textSize="16dp"
-        android:gravity="center_vertical|center_horizontal" />
+        android:gravity="center_vertical|center_horizontal"
+        android:textStyle="italic" />
 </LinearLayout>

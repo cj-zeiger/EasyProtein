@@ -30,17 +30,23 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
 
     private ArrayList<FoodEntry> mHistoryData;
 
+    private final String SAVE_FILE = "input_history";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         mHistoryFragment = (HistoryFragment) getFragmentManager().findFragmentById(R.id.list);
         mInputFragment = (InputFragment) getFragmentManager().findFragmentById(R.id.input);
         mHistoryData = new ArrayList<FoodEntry>();
         mHistoryFragment.setData(mHistoryData);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        
     }
 
     @Override
@@ -70,19 +76,28 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
     @Override
     public void confirmReset() {
         mHistoryFragment.resetData();
+        mHistoryData.clear();
         mInputFragment.updateDisplay(0.0,0.0);
     }
     @Override
-    public void addFoodEntry(FoodEntry addition) {
-        mHistoryData.add(addition);
-        mHistoryFragment.updateData();
+    public void addFoodEntry(double newCalorie, double newProtein) {
+        mHistoryData.add(new FoodEntry(newCalorie, newProtein));
+        dataModified();
+        mInputFragment.mInputCal.setText("");
+        mInputFragment.mInputPro.setText("");
+    }
+    @Override
+    public void dataModified(){
         double calorie=0;
         double protein=0;
         for(FoodEntry entry:mHistoryData){
             calorie+=entry.getCalorie();
             protein+= entry.getProtein();
         }
+
+        //update calls to fragments
         mInputFragment.updateDisplay(calorie,protein);
+        mHistoryFragment.updateData();
     }
 
     public static class ResetDataDialog extends DialogFragment{
@@ -112,22 +127,21 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
         private Button mAddButton;
         private Button mResetButton;
 
-        private EditText mInputCal;
-        private EditText mInputPro;
+        public EditText mInputCal;
+        public EditText mInputPro;
+
+        private double mCal;
+        private double mPro;
 
         private TextView mTextCal;
         private TextView mTextPro;
 
-        public ModifyFoodEntry mListener;
+        private final String SAVE_FILE = "saved_history";
 
+        public ModifyFoodEntry mListener;
 
         public InputFragment() {
         }
-        @Override
-        public void onCreate(Bundle savedInstanceState){
-            super.onCreate(savedInstanceState);
-        }
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
@@ -137,6 +151,7 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
 
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
+
             super.onActivityCreated(savedInstanceState);
             mAddButton = (Button) getActivity().findViewById(R.id.button_add);
             mResetButton = (Button) getActivity().findViewById(R.id.button_reset);
@@ -159,37 +174,63 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
 
             mTextCal = (TextView) getActivity().findViewById(R.id.text_calvar);
             mTextPro = (TextView) getActivity().findViewById(R.id.text_provar);
-            mListener = (ModifyFoodEntry) getActivity();
-        }
-        private void addButton(){
-            double calorie;
-            double protein;
-            try {
-                calorie = Double.parseDouble(mInputCal.getText().toString());
-                protein = Double.parseDouble(mInputPro.getText().toString());
-            } catch(NumberFormatException e) {
-                Toast.makeText(getActivity(),"Invalid amounts",Toast.LENGTH_SHORT).show();
-                return;
-            }
-            FoodEntry entry = new FoodEntry(calorie,protein);
-            mListener.addFoodEntry(entry);
 
+            mListener = (ModifyFoodEntry) getActivity();
+
+        }
+
+        private void addButton(){
+            if(validInput()){
+                mListener.addFoodEntry(mCal,mPro);
+            } else {
+                Toast.makeText(getActivity(),"Invalid amounts",Toast.LENGTH_SHORT).show();
+            }
         }
         private void resetButton(){
             mListener.resetFoodEntry();
+
         }
         public void updateDisplay(double calorie, double protein){
             mTextCal.setText(""+calorie);
             mTextPro.setText(protein+"g");
         }
-        public void giveCounters(Double calorie, Double protein){
 
+        /**
+         * Sets mCal and mPro to correct value if they are valid inputs
+         * @return true if two valid inputs are found
+         */
+        private boolean validInput(){
+            try{
+                String sCal = mInputCal.getText().toString();
+                String sPro = mInputPro.getText().toString();
+                double cal;
+                double pro;
+                if(sCal.isEmpty()){
+                    cal = 0.0;
+                } else {
+                    cal = Double.parseDouble(mInputCal.getText().toString());
+                }
+                if(sPro.isEmpty()){
+                    pro = 0.0;
+                } else {
+                    pro = Double.parseDouble(mInputPro.getText().toString());
+                }
+                if(cal==pro&&cal==0.0){
+                    return false;
+                }
+                mCal = cal;
+                mPro = pro;
+                return true;
+            } catch(NumberFormatException nfe){
+                return false;
+            }
         }
     }
     public static class HistoryFragment extends ListFragment {
         View mFooterView;
         HistoryAdapter mHistoryAdapter;
         ArrayList<FoodEntry> mHistoryData;
+        ModifyFoodEntry mListener;
 
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
@@ -198,6 +239,7 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
             if(mHistoryData == null){
                 throw new NullPointerException();
             }
+            mListener = (ModifyFoodEntry)getActivity();
             mHistoryAdapter = new HistoryAdapter(getActivity(),mHistoryData);
             setListAdapter(mHistoryAdapter);
         }
@@ -210,7 +252,7 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
                                  saved){
             View listView = inflater.inflate(R.layout.fragment_customlist, null);
-            mFooterView = inflater.inflate(R.layout.footer_custom, null);
+            mFooterView = inflater.inflate(R.layout.listfooter_custom, null);
             return listView;
         }
 
@@ -224,7 +266,6 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
             mHistoryAdapter.notifyDataSetChanged();
         }
         public void resetData(){
-            mHistoryAdapter.setData(new ArrayList<FoodEntry>());
             mHistoryAdapter.notifyDataSetChanged();
         }
         public void setData(ArrayList<FoodEntry> data){
@@ -254,11 +295,27 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
                 if (convertView != null){
                     v = convertView;
                 } else {
-                    v = mActivity.getLayoutInflater().inflate(R.layout.list_content,parent,false);
+                    v = mActivity.getLayoutInflater().inflate(R.layout.listitem_historyitem,parent,false);
                 }
 
                 TextView calView = (TextView)v.findViewById(R.id.item_calorie);
                 TextView proView = (TextView)v.findViewById(R.id.item_protein);
+                Button delButton = (Button) v.findViewById(R.id.button_delete);
+
+                final FoodEntry entry = mItems.get(position);
+                delButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (entry != null){
+                            for(int k =0; k<mItems.size();k++){
+                                if(entry == mItems.get(k)) {
+                                    mItems.remove(k);
+                                }
+                            }
+                            mListener.dataModified();
+                        }
+                    }
+                });
                 calView.setText(sCalorie+mItems.get(position).getCalorie());
                 proView.setText(sProtein+mItems.get(position).getProtein()+"g");
                 return v;
