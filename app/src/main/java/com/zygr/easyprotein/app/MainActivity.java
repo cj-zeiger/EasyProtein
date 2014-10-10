@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.ListFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +21,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.SortedSet;
 
 
 public class MainActivity extends Activity implements ModifyFoodEntry {
@@ -28,9 +38,10 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
     private HistoryFragment mHistoryFragment;
     private InputFragment mInputFragment;
 
+
     private ArrayList<FoodEntry> mHistoryData;
 
-    private final String SAVE_FILE = "input_history";
+    private final String filename = "easyprotein.dat";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +50,35 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
         mHistoryFragment = (HistoryFragment) getFragmentManager().findFragmentById(R.id.list);
         mInputFragment = (InputFragment) getFragmentManager().findFragmentById(R.id.input);
         mHistoryData = new ArrayList<FoodEntry>();
+        try {
+            FileInputStream fis = openFileInput(filename);
+            ObjectInputStream objectIn = new ObjectInputStream(fis);
+            Object object = objectIn.readObject();
+            mHistoryData = (ArrayList) object;
+            objectIn.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         mHistoryFragment.setData(mHistoryData);
     }
-
     @Override
-    protected void onPause() {
-        super.onPause();
-
-        
+    protected void onResume(){
+        super.onResume();
+        //To account for data being loaded from a file.
+        dataModified();
+    }
+    @Override
+    protected void onStop(){
+        super.onStop();
+        try {
+            FileOutputStream fos = openFileOutput(filename, Context.MODE_PRIVATE);
+            ObjectOutputStream objStream = new ObjectOutputStream(fos);
+            objStream.writeObject(mHistoryData);
+            objStream.close();
+        } catch (Exception e){
+            Toast.makeText(this,"Issue Saving Data", Toast.LENGTH_SHORT).show();
+            //exception
+        }
     }
 
     @Override
@@ -75,13 +107,13 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
     }
     @Override
     public void confirmReset() {
-        mHistoryFragment.resetData();
         mHistoryData.clear();
+        mHistoryFragment.updateData();
         mInputFragment.updateDisplay(0.0,0.0);
     }
     @Override
     public void addFoodEntry(double newCalorie, double newProtein) {
-        mHistoryData.add(new FoodEntry(newCalorie, newProtein));
+        mHistoryData.add(new FoodEntry(newCalorie, newProtein, new Date()));
         dataModified();
         mInputFragment.mInputCal.setText("");
         mInputFragment.mInputPro.setText("");
@@ -92,7 +124,7 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
         double protein=0;
         for(FoodEntry entry:mHistoryData){
             calorie+=entry.getCalorie();
-            protein+= entry.getProtein();
+            protein+=entry.getProtein();
         }
 
         //update calls to fragments
@@ -235,7 +267,8 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
-            getListView().addFooterView(mFooterView,"footer",false);
+
+            getListView().addFooterView(mFooterView,null,false);
             if(mHistoryData == null){
                 throw new NullPointerException();
             }
@@ -259,13 +292,9 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
         @Override
         public void onDestroy() {
             super.onDestroy();
-            //save data
         }
 
         public void updateData(){
-            mHistoryAdapter.notifyDataSetChanged();
-        }
-        public void resetData(){
             mHistoryAdapter.notifyDataSetChanged();
         }
         public void setData(ArrayList<FoodEntry> data){
@@ -276,8 +305,6 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
         public class HistoryAdapter extends BaseAdapter {
             Activity mActivity;
             private ArrayList<FoodEntry> mItems;
-            private final String sCalorie = "Calorie: ";
-            private final String sProtein = "Protein: ";
 
 
             public HistoryAdapter(Activity c, ArrayList<FoodEntry> items){
@@ -287,6 +314,13 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
             @Override
             public int getCount() {
                 return mItems.size();
+            }
+
+            @Override
+            public void notifyDataSetChanged(){
+                Collections.sort(mHistoryData);
+                super.notifyDataSetChanged();
+
             }
 
             @Override
@@ -316,8 +350,8 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
                         }
                     }
                 });
-                calView.setText(sCalorie+mItems.get(position).getCalorie());
-                proView.setText(sProtein+mItems.get(position).getProtein()+"g");
+                calView.setText("" + mItems.get(position).getCalorie());
+                proView.setText(mItems.get(position).getProtein()+"g");
                 return v;
             }
 
@@ -329,17 +363,6 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
             @Override
             public Object getItem(int position) {
                 return mItems.get(position);
-            }
-
-            public void setData(ArrayList<FoodEntry> data){
-                mItems = data;
-            }
-            public ArrayList<FoodEntry> getData(){
-                return mItems;
-            }
-
-            public void addEntry(FoodEntry addition){
-                mItems.add(addition);
             }
         }
 

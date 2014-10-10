@@ -4,23 +4,52 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
-    <TextView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/item_calorie"
+        android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:text="Calorie: 200"
-        android:gravity="center"
-        android:textSize="15dp" />
-    <TextView
+        android:gravity="center_vertical|center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_calorie"
+            android:text="200"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:paddingRight="4dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C"
+            android:textColor="#0099CC"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="10sp" />
+        </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/item_protein"
+        android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:autoText="false"
-        android:text="Protein: 0g"
-        android:gravity="center"
-        android:textSize="15dp" />
+        android:gravity="center_vertical|center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_protein"
+            android:text="0g"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:paddingRight="4dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="P"
+            android:textColor="#0099CC"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="10sp" />
+    </LinearLayout>
     <View
         android:layout_width="1dip"
         android:layout_height="fill_parent"

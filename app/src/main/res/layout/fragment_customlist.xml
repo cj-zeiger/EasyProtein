@@ -9,11 +9,7 @@
         android:layout_height="match_parent"
         android:background="#ffffffff"
         android:layout_weight="1"
-        android:drawSelectorOnTop="false"
-        android:divider="@android:drawable/dialog_holo_dark_frame"
-        android:dividerHeight="1dp"
-        android:footerDividersEnabled="true"
-        android:headerDividersEnabled="true" />
+        android:footerDividersEnabled="false"/>
 
     <TextView android:id="@id/android:empty"
         android:layout_width="match_parent"
