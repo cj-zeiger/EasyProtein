@@ -23,23 +23,25 @@ import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.ObjectInput;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.net.MalformedURLException;
 import java.util.Date;
-import java.util.SortedSet;
+import java.util.LinkedList;
+
+//Azure
+import com.microsoft.windowsazure.mobileservices.*;
+
 
 
 public class MainActivity extends Activity implements ModifyFoodEntry {
 
     private HistoryFragment mHistoryFragment;
     private InputFragment mInputFragment;
+    private MobileServiceClient mClient;
 
 
-    private ArrayList<FoodEntry> mHistoryData;
+    private LinkedList<FoodEntry> mHistoryData;
 
     private final String filename = "easyprotein.dat";
     @Override
@@ -49,17 +51,31 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
 
         mHistoryFragment = (HistoryFragment) getFragmentManager().findFragmentById(R.id.list);
         mInputFragment = (InputFragment) getFragmentManager().findFragmentById(R.id.input);
-        mHistoryData = new ArrayList<FoodEntry>();
+        mHistoryData = new LinkedList<FoodEntry>();
         try {
             FileInputStream fis = openFileInput(filename);
             ObjectInputStream objectIn = new ObjectInputStream(fis);
             Object object = objectIn.readObject();
-            mHistoryData = (ArrayList) object;
+            mHistoryData = (LinkedList) object;
             objectIn.close();
         } catch (Exception e){
             e.printStackTrace();
         }
         mHistoryFragment.setData(mHistoryData);
+
+
+        //Azure Connect
+        try{
+            mClient = new MobileServiceClient(
+                "https://easyprotein.azure-mobile.net/",
+                "PTWlFurSwaVDiTzDvZxxCcbXeVzaYh75",
+                this);
+        }
+        catch (MalformedURLException e){
+            e.printStackTrace();
+        }
+
+
     }
     @Override
     protected void onResume(){
@@ -109,19 +125,19 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
     public void confirmReset() {
         mHistoryData.clear();
         mHistoryFragment.updateData();
-        mInputFragment.updateDisplay(0.0,0.0);
+        mInputFragment.updateDisplay(0,0);
     }
     @Override
-    public void addFoodEntry(double newCalorie, double newProtein) {
-        mHistoryData.add(new FoodEntry(newCalorie, newProtein, new Date()));
+    public void addFoodEntry(int newCalorie, int newProtein) {
+        mHistoryData.push(new FoodEntry(newCalorie, newProtein, new Date()));
         dataModified();
         mInputFragment.mInputCal.setText("");
         mInputFragment.mInputPro.setText("");
     }
     @Override
     public void dataModified(){
-        double calorie=0;
-        double protein=0;
+        int calorie=0;
+        int protein=0;
         for(FoodEntry entry:mHistoryData){
             calorie+=entry.getCalorie();
             protein+=entry.getProtein();
@@ -162,8 +178,8 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
         public EditText mInputCal;
         public EditText mInputPro;
 
-        private double mCal;
-        private double mPro;
+        private int mCal;
+        private int mPro;
 
         private TextView mTextCal;
         private TextView mTextPro;
@@ -222,7 +238,7 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
             mListener.resetFoodEntry();
 
         }
-        public void updateDisplay(double calorie, double protein){
+        public void updateDisplay(int calorie, int protein){
             mTextCal.setText(""+calorie);
             mTextPro.setText(protein+"g");
         }
@@ -235,19 +251,21 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
             try{
                 String sCal = mInputCal.getText().toString();
                 String sPro = mInputPro.getText().toString();
-                double cal;
-                double pro;
+                int cal;
+                int pro;
                 if(sCal.isEmpty()){
-                    cal = 0.0;
+                    cal = 0;
                 } else {
-                    cal = Double.parseDouble(mInputCal.getText().toString());
+                    double tmp = Double.parseDouble(mInputCal.getText().toString());
+                    cal = (int)Math.round(tmp);
                 }
                 if(sPro.isEmpty()){
-                    pro = 0.0;
+                    pro = 0;
                 } else {
-                    pro = Double.parseDouble(mInputPro.getText().toString());
+                    double tmp = Double.parseDouble(mInputPro.getText().toString());
+                    pro = (int)Math.round(tmp);
                 }
-                if(cal==pro&&cal==0.0){
+                if(cal==pro&&cal==0){
                     return false;
                 }
                 mCal = cal;
@@ -261,7 +279,7 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
     public static class HistoryFragment extends ListFragment {
         View mFooterView;
         HistoryAdapter mHistoryAdapter;
-        ArrayList<FoodEntry> mHistoryData;
+        LinkedList<FoodEntry> mHistoryData;
         ModifyFoodEntry mListener;
 
         @Override
@@ -297,17 +315,17 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
         public void updateData(){
             mHistoryAdapter.notifyDataSetChanged();
         }
-        public void setData(ArrayList<FoodEntry> data){
+        public void setData(LinkedList<FoodEntry> data){
             mHistoryData = data;
 
         }
 
         public class HistoryAdapter extends BaseAdapter {
             Activity mActivity;
-            private ArrayList<FoodEntry> mItems;
+            private LinkedList<FoodEntry> mItems;
 
 
-            public HistoryAdapter(Activity c, ArrayList<FoodEntry> items){
+            public HistoryAdapter(Activity c, LinkedList<FoodEntry> items){
                 mActivity = c;
                 mItems = items;
             }
@@ -318,7 +336,6 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
 
             @Override
             public void notifyDataSetChanged(){
-                Collections.sort(mHistoryData);
                 super.notifyDataSetChanged();
 
             }
@@ -341,13 +358,9 @@ public class MainActivity extends Activity implements ModifyFoodEntry {
                     @Override
                     public void onClick(View v) {
                         if (entry != null){
-                            for(int k =0; k<mItems.size();k++){
-                                if(entry == mItems.get(k)) {
-                                    mItems.remove(k);
-                                }
-                            }
-                            mListener.dataModified();
+                            mItems.remove(entry);
                         }
+                        mListener.dataModified();
                     }
                 });
                 calView.setText("" + mItems.get(position).getCalorie());

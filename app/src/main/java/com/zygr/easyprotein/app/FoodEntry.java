@@ -3,26 +3,21 @@ package com.zygr.easyprotein.app;
 import java.io.Serializable;
 import java.util.Date;
 
-public class FoodEntry implements Serializable, Comparable<FoodEntry>{
-    private final double mCalorie;
-    private final double mProtein;
+public class FoodEntry implements Serializable{
+    private final int mCalorie;
+    private final int mProtein;
     private Date mTimeCreated;
 
-    public FoodEntry(double calorie, double protein, Date date){
+    public FoodEntry(int calorie, int protein, Date date){
         mCalorie = calorie;
         mProtein = protein;
         mTimeCreated = date;
     }
-    public double getCalorie(){
+    public int getCalorie(){
         return mCalorie;
     }
-    public double getProtein(){
+    public int getProtein(){
         return mProtein;
     }
     public Date getTimeCreated(){ return mTimeCreated;}
-
-    @Override
-    public int compareTo(FoodEntry another) {
-        return another.getTimeCreated().compareTo(mTimeCreated);
-    }
 }

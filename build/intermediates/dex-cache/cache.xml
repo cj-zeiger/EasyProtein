@@ -2,22 +2,16 @@
 <pre-dex-items>
 
     <item
-        dex="/home/cj/env/workspace/EasyProtein/app/build/intermediates/pre-dexed/debug/classes-2cc1aad4e47fe9528ca2051fd8a18ee714ee67ff.jar"
-        jar="/home/cj/env/workspace/EasyProtein/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
+        dex="/home/cj/env/workspace/EasyProtein/app/build/intermediates/pre-dexed/debug/mobileservices-1.1.5-b2884f2cd272a3f3db2db312217bce826e471cbc.jar"
+        jar="/home/cj/env/workspace/EasyProtein/app/libs/mobileservices-1.1.5.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
+        sha1="12188408c45b88124cb38dd2bedc9b314b5f554b"/>
     <item
-        dex="/home/cj/env/workspace/EasyProtein/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-649517c9f0db2a8fb6e3e7a5606ffe9cba07c49d.jar"
-        jar="/home/cj/env/adt/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        dex="/home/cj/env/workspace/EasyProtein/app/build/intermediates/pre-dexed/debug/gson-2.2.2-11badb86fab610f39c546f6817ce051932490cb1.jar"
+        jar="/home/cj/env/workspace/EasyProtein/app/libs/gson-2.2.2.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
-    <item
-        dex="/home/cj/env/workspace/EasyProtein/app/build/intermediates/pre-dexed/debug/classes-11dc126f35708de21807b7e893b8d33d5569a3f5.jar"
-        jar="/home/cj/env/workspace/EasyProtein/build/intermediates/exploded-aar/com.android.support/gridlayout-v7/19.1.0/classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="af4cc326e6cd92f88db12298767e521743aedd36"/>
+        sha1="53bfcd3c8e310d1493b2691484525ed90b04e236"/>
 
 </pre-dex-items>
