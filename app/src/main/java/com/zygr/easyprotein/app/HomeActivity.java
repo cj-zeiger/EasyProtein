@@ -208,6 +208,7 @@ public class HomeActivity extends ListActivity {
                         mItems.remove(entry);
                     }
                     refreshCounterDisplay();
+                    notifyDataSetChanged();
                 }
             });
             calView.setText("" + mItems.get(position).getCalorie());
