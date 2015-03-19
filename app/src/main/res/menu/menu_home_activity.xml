@@ -1,8 +1,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.zygr.easyprotein.app.HomeActivity">
-    <!--
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" android:showAsAction="never" />
-    -->
+    <item
+        android:id="@+id/action_reset"
+        android:orderInCategory="101"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_action_refresh"
+        android:title="@string/action_reset"/>
+    <item
+        android:id="@+id/action_add_new"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_action_new"
+        android:title="@string/action_add_new_item"/>
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100" />
+
 </menu>

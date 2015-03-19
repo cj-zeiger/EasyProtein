@@ -25,7 +25,7 @@
             android:textColor="#0099CC"
             android:textStyle="bold"
             android:gravity="center"
-            android:textSize="10sp" />
+            android:textSize="15sp" />
         </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -48,7 +48,7 @@
             android:textColor="#0099CC"
             android:textStyle="bold"
             android:gravity="center"
-            android:textSize="10sp" />
+            android:textSize="15sp" />
     </LinearLayout>
     <View
         android:layout_width="1dip"
@@ -56,17 +56,16 @@
         android:layout_marginBottom="4dip"
         android:layout_marginTop="4dip"
         android:background="?android:attr/dividerVertical"/>
-    <Button
-        style="?android:attr/buttonStyleSmall"
+    <ImageButton
+        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:text="Delete"
-        android:id="@+id/button_delete"
         android:layout_weight="0"
         android:clickable="true"
-        android:textSize="15dp"
         android:paddingRight="12dp"
         android:paddingLeft="12dp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:src="@drawable/ic_action_remove"
+        android:id="@+id/button_delete"
+        android:contentDescription="@string/button_delete_item"/>
 </LinearLayout>

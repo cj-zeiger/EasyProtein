@@ -7,12 +7,11 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="No Additional History ..."
+        android:text="@string/list_footer_text"
         android:id="@+id/footerText"
         android:gravity="center_horizontal"
         android:clickable="false"
         android:textColor="#ffd6d6d6"
         android:textStyle="italic"
-        android:paddingTop="2dp"
-        />
+        android:paddingTop="2dp"/>
 </LinearLayout>

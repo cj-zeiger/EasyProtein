@@ -7,6 +7,7 @@ import android.app.DialogFragment;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,20 +68,6 @@ public class HomeActivity extends ListActivity {
         }
 
         //Set References to views in the input area of the layout
-        Button mAddButton = (Button) findViewById(R.id.button_add);
-        Button mResetButton = (Button) findViewById(R.id.button_reset);
-        mAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addButton();
-            }
-        });
-        mResetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetButton();
-            }
-        });
         mInputCal = (EditText)findViewById(R.id.editText_calorie);
         mInputPro = (EditText)findViewById(R.id.editText_protein);
         mTextCal = (TextView)findViewById(R.id.text_calvar);
@@ -129,12 +117,16 @@ public class HomeActivity extends ListActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        /**
+
         if (id == R.id.action_settings) {
             startActivity(new Intent(this,SettingsActivity.class));
             return true;
+        } else if(id == R.id.action_reset){
+            resetButton();
+        } else if(id == R.id.action_add_new){
+            addButton();
         }
-        **/
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -198,7 +190,7 @@ public class HomeActivity extends ListActivity {
 
             TextView calView = (TextView)v.findViewById(R.id.item_calorie);
             TextView proView = (TextView)v.findViewById(R.id.item_protein);
-            Button delButton = (Button) v.findViewById(R.id.button_delete);
+            ImageButton delButton = (ImageButton) v.findViewById(R.id.button_delete);
 
             final FoodEntry entry = mItems.get(position);
             delButton.setOnClickListener(new View.OnClickListener() {
@@ -228,7 +220,6 @@ public class HomeActivity extends ListActivity {
     }
 
     //Private Aux Methods
-
     private void addButton(){
         if(validInput()){
             addFoodEntry(mCal, mPro);

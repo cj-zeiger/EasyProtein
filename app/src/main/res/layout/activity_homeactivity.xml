@@ -33,9 +33,8 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/text_calorie"
+                    android:text="@string/text_view_calorie"
                     android:id="@+id/text_calories"
                     android:gravity="center"/>
 
@@ -47,7 +46,7 @@
                     android:gravity="center"
                     android:textColor="#0099CC"
                     android:textStyle="bold"
-                    android:textSize="38dp" />
+                    android:textSize="38sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -59,9 +58,8 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/text_protein"
+                    android:text="@string/text_view_protein"
                     android:id="@+id/text_protein"
                     android:gravity="center"/>
 
@@ -73,7 +71,7 @@
                     android:gravity="center"
                     android:textColor="#0099CC"
                     android:textStyle="bold"
-                    android:textSize="38dp" />
+                    android:textSize="38sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -89,7 +87,7 @@
                 android:inputType="numberDecimal"
                 android:layout_weight="1"
                 android:id="@+id/editText_calorie"
-                android:hint="@string/textinput_calorie"/>
+                android:hint="@string/edit_text_calorie"/>
 
             <EditText
                 android:layout_width="fill_parent"
@@ -97,30 +95,7 @@
                 android:inputType="numberDecimal"
                 android:layout_weight="1"
                 android:id="@+id/editText_protein"
-                android:hint="@string/textinput_protein" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="fill_horizontal"
-            style="?android:buttonBarStyle">
-            <Button
-                style="?android:buttonBarButtonStyle"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/button_add"
-                android:id="@+id/button_add"
-                android:layout_weight="1"/>
-
-            <Button
-                style="?android:buttonBarButtonStyle"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/button_reset"
-                android:id="@+id/button_reset"
-                android:layout_weight="1"/>
+                android:hint="@string/edit_text_protein" />
         </LinearLayout>
     </LinearLayout>
 
@@ -143,7 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#ffffffff"
-            android:text="@string/list_footer_text"
+            android:text="@string/message_no_history"
             android:textColor="#ffd6d6d6"
             android:typeface="normal"
             android:textSize="16sp"
