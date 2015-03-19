@@ -7,7 +7,6 @@ import android.app.DialogFragment;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,8 +36,6 @@ public class HomeActivity extends ListActivity {
     private final String filename = "easyprotein.dat";
 
     //View References for the input part of the layout
-    private Button mAddButton;
-    private Button mResetButton;
     public EditText mInputCal;
     public EditText mInputPro;
     private int mCal;
@@ -69,8 +66,8 @@ public class HomeActivity extends ListActivity {
         }
 
         //Set References to views in the input area of the layout
-        mAddButton = (Button) findViewById(R.id.button_add);
-        mResetButton = (Button) findViewById(R.id.button_reset);
+        Button mAddButton = (Button) findViewById(R.id.button_add);
+        Button mResetButton = (Button) findViewById(R.id.button_reset);
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
