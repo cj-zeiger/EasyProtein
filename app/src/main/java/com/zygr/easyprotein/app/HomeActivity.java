@@ -24,10 +24,14 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 import java.util.LinkedList;
 
 
-public class FragmentlessMainActivity extends ListActivity {
+public class HomeActivity extends ListActivity {
+
+    private final String _saved_state_calories = "calories";
+    private final String _save_state_protein = "protein";
 
     private LinkedList<FoodEntry> mHistoryData;
     private final String filename = "easyprotein.dat";
@@ -49,7 +53,7 @@ public class FragmentlessMainActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fragmentless);
+        setContentView(R.layout.activity_homeactivity);
         mHistoryData = new LinkedList<FoodEntry>();
         try {
             FileInputStream fis = openFileInput(filename);
@@ -90,6 +94,11 @@ public class FragmentlessMainActivity extends ListActivity {
         mHistoryAdapter = new HistoryAdapter(this,mHistoryData);
         setListAdapter(mHistoryAdapter);
 
+        if(savedInstanceState != null){
+            mInputCal.setText(savedInstanceState.getInt(_saved_state_calories)+"");
+            mInputPro.setText(savedInstanceState.getInt(_save_state_protein)+"");
+        }
+
 
     }
     @Override
@@ -105,30 +114,41 @@ public class FragmentlessMainActivity extends ListActivity {
             //exception
         }
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(validInput()){
+            outState.putInt(_save_state_protein,mPro);
+            outState.putInt(_saved_state_calories,mCal);
+        }
+
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        /**
         if (id == R.id.action_settings) {
             startActivity(new Intent(this,SettingsActivity.class));
             return true;
         }
-
+        **/
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_fragmentless_main_activitiy, menu);
+        getMenuInflater().inflate(R.menu.menu_home_activity, menu);
         return true;
     }
 
     public static class ResetDataDialog extends DialogFragment {
-        FragmentlessMainActivity act;
+        HomeActivity act;
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
-                act = (FragmentlessMainActivity) getActivity();
+                act = (HomeActivity) getActivity();
         }
 
         @Override
@@ -214,18 +234,15 @@ public class FragmentlessMainActivity extends ListActivity {
         }
     }
     private void resetButton(){
-        resetFoodEntry();
-
+        ResetDataDialog dialog = new ResetDataDialog();
+        dialog.show(getFragmentManager(), null);
     }
     private void addFoodEntry(int calorie, int protein) {
-
+        mHistoryData.push(new FoodEntry(calorie, protein, new Date()));
+        dataModified();
+        mInputCal.setText("");
+        mInputPro.setText("");
     }
-
-    private void resetFoodEntry() {
-        ResetDataDialog dialog = new ResetDataDialog();
-        dialog.show(getFragmentManager(),null);
-    }
-
     private void confirmReset() {
         mHistoryData.clear();
         updateData();
@@ -253,8 +270,7 @@ public class FragmentlessMainActivity extends ListActivity {
         try{
             String sCal = mInputCal.getText().toString();
             String sPro = mInputPro.getText().toString();
-            int cal;
-            int pro;
+            int cal, pro;
             if(sCal.isEmpty()){
                 cal = 0;
             } else {

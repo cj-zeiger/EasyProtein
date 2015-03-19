@@ -15,15 +15,15 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".FragmentlessMainActivity"
+            android:parentActivityName=".HomeActivity"
             android:theme="@style/SettingsTheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="FragmentlessMainActivity" />
+                android:value=".HomeActivity" />
         </activity>
         <activity
-            android:name=".FragmentlessMainActivity"
-            android:label="@string/fragmentlessactivity_title" >
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home_activity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

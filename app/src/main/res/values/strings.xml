@@ -4,21 +4,17 @@
     <string name="app_name">Easy Protein</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_home_activity">Easy Protein</string>
 
     <string name="test_preference">Test Preference</string>
     <string name="test_preference_summary">This is a test summary</string>
 
     <string name="textinput_calorie">Calories</string>
     <string name="textinput_protein">Protein(g)</string>
-
     <string name="text_calorie">Calories</string>
     <string name="text_protein">Protein</string>
-
     <string name="button_add">Add</string>
     <string name="button_reset">Reset</string>
-    <string name="fragmentlessactivity_title">FragmentlessMainActivitiy</string>
-
-    <string name="hello_world">Hello world!</string>
 
 
 </resources>
