@@ -99,6 +99,11 @@ public class HomeActivity extends ListActivity {
 
     }
     @Override
+    protected void onResume(){
+        super.onResume();
+        refreshCounterDisplay();
+    }
+    @Override
     protected void onStop(){
         super.onStop();
         try {
@@ -202,7 +207,7 @@ public class HomeActivity extends ListActivity {
                     if (entry != null){
                         mItems.remove(entry);
                     }
-                    dataModified();
+                    refreshCounterDisplay();
                 }
             });
             calView.setText("" + mItems.get(position).getCalorie());
@@ -236,16 +241,17 @@ public class HomeActivity extends ListActivity {
     }
     private void addFoodEntry(int calorie, int protein) {
         mHistoryData.push(new FoodEntry(calorie, protein, new Date()));
-        dataModified();
+        refreshCounterDisplay();
+        notifyAdapter();
         mInputCal.setText("");
         mInputPro.setText("");
     }
     private void confirmReset() {
         mHistoryData.clear();
-        updateData();
+        notifyAdapter();
         updateDisplay(0,0);
     }
-    private void dataModified() {
+    private void refreshCounterDisplay() {
         int calorie=0;
         int protein=0;
         for(FoodEntry entry: mHistoryData){
@@ -253,7 +259,6 @@ public class HomeActivity extends ListActivity {
             protein+=entry.getProtein();
         }
         updateDisplay(calorie,protein);
-        updateData();
     }
     public void updateDisplay(int calorie, int protein){
         mTextCal.setText(""+calorie);
@@ -290,7 +295,7 @@ public class HomeActivity extends ListActivity {
             return false;
         }
     }
-    private void updateData(){
+    private void notifyAdapter(){
         mHistoryAdapter.notifyDataSetChanged();
     }
 
