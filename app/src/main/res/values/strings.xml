@@ -16,7 +16,7 @@
 
     <string name="button_add">Add</string>
     <string name="button_reset">Reset</string>
-    <string name="title_activity_fragmentless_main_activitiy">FragmentlessMainActivitiy</string>
+    <string name="fragmentlessactivity_title">FragmentlessMainActivitiy</string>
 
     <string name="hello_world">Hello world!</string>
 

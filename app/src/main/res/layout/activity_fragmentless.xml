@@ -1,12 +1,152 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.zygr.easyprotein.app.FragmentlessMainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="com.zygr.easyprotein.app.FragmentlessMainActivity"
+    android:background="#ffdedede"
+    android:orientation="vertical">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="3dp"
+        android:layout_margin="6dp"
+        android:background="#ffffffff">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:divider="?android:dividerHorizontal"
+            android:focusable="false"
+            android:gravity="left"
+            android:background="#ffffffff">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
-</RelativeLayout>
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/text_calorie"
+                    android:id="@+id/text_calories"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:id="@+id/text_calvar"
+                    android:gravity="center"
+                    android:textColor="#0099CC"
+                    android:textStyle="bold"
+                    android:textSize="38dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/text_protein"
+                    android:id="@+id/text_protein"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0g"
+                    android:id="@+id/text_provar"
+                    android:gravity="center"
+                    android:textColor="#0099CC"
+                    android:textStyle="bold"
+                    android:textSize="38dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:background="#ffffffff">
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:layout_weight="1"
+                android:id="@+id/editText_calorie"
+                android:hint="@string/textinput_calorie"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:layout_weight="1"
+                android:id="@+id/editText_protein"
+                android:hint="@string/textinput_protein" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="fill_horizontal"
+            android:background="#ffffffff">
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_add"
+                android:id="@+id/button_add"
+                android:layout_weight="1"/>
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_reset"
+                android:id="@+id/button_reset"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffffff"
+        android:layout_marginRight="6dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginBottom="6dp">
+
+        <ListView android:id="@id/android:list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:footerDividersEnabled="false"/>
+
+        <TextView android:id="@id/android:empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffffff"
+            android:text="No History"
+            android:textColor="#ffd6d6d6"
+            android:typeface="normal"
+            android:textSize="16sp"
+            android:gravity="center_vertical|center_horizontal"
+            android:textStyle="italic" />
+    </LinearLayout>
+
+</LinearLayout>
