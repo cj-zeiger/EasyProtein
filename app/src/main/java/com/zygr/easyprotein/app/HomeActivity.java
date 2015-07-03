@@ -108,10 +108,12 @@ public class HomeActivity extends ListActivity {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        /**
         if(validInput()){
             outState.putInt(_save_state_protein,mPro);
             outState.putInt(_saved_state_calories,mCal);
         }
+         **/
 
     }
     @Override
@@ -123,8 +125,11 @@ public class HomeActivity extends ListActivity {
             return true;
         } else if(id == R.id.action_reset){
             resetButton();
+            return true;
         } else if(id == R.id.action_add_new){
-            addButton();
+            Intent start_add_dialog = new Intent(this, CreateFoodEntryActivity.class);
+            startActivity(start_add_dialog);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

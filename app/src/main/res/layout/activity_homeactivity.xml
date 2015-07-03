@@ -74,29 +74,6 @@
                     android:textSize="38sp" />
             </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
-            android:background="#ffffffff">
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:layout_weight="1"
-                android:id="@+id/editText_calorie"
-                android:hint="@string/edit_text_calorie"/>
-
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:layout_weight="1"
-                android:id="@+id/editText_protein"
-                android:hint="@string/edit_text_protein" />
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
